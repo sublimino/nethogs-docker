@@ -66,9 +66,12 @@ char * uid2username (uid_t uid)
 
 	if (pwd == NULL)
 	{
-		assert(false);
-		return strdup ("unlisted");
-	} else {
+        // assert(false);
+        // return strdup ("unlisted");     
+        char * uidstr = (char*)malloc(20);
+        sprintf(uidstr, "%d", uid);
+        return uidstr;
+    } else {
 		return strdup(pwd->pw_name);
 	}
 }
@@ -413,7 +416,7 @@ void do_refresh()
 			uid_t uid = curproc->getVal()->getUid();
 #ifndef NDEBUG
 			struct passwd * pwuid = getpwuid(uid);
-			assert (pwuid != NULL);
+			// assert (pwuid != NULL);
 			// value returned by pwuid should not be freed, according to
 			// Petr Uzel.
 			//free (pwuid);
